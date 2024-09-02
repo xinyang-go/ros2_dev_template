@@ -1,0 +1,46 @@
+{
+	"name": "ros2_dev_template",
+	"build" : {
+        "dockerfile": "Dockerfile",
+		"args": {
+			"ROS_DISTRO": "humble",
+			"USERNAME": "${env:USER}"
+		}
+    },
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"clangd.arguments": [
+					"--header-insertion=never",
+					"--clang-tidy"
+				],
+				"C_Cpp.intelliSenseEngine": "disabled",
+				"[cpp]": {
+					"editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+				}
+			},
+			"extensions": [
+				"ms-python.python",
+				"ms-vscode.cpptools",
+				"llvm-vs-code-extensions.vscode-clangd",
+				"ms-vscode.cmake-tools",
+				"mhutchie.git-graph",
+				"seatonjiang.gitmoji-vscode",
+				"ms-iot.vscode-ros",
+				"cschlosser.doxdocgen",
+				"ms-azuretools.vscode-docker"
+			]
+		}
+	},
+	"runArgs": [
+		"--net=host",
+		"--ipc=host",
+		"--gpus=all",
+		"--cap-add=SYS_PTRACE",
+		"-e=DISPLAY",
+		"-v=/tmp/.X11-unix:/tmp/.X11-unix",
+		"-v=/mnt:/mnt"
+	],
+	"workspaceMount": "source=${localWorkspaceFolder},target=/home/${env:USER}/${localWorkspaceFolderBasename},type=bind",
+	"workspaceFolder": "/home/${env:USER}/${localWorkspaceFolderBasename}"
+}
